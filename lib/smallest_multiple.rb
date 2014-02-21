@@ -1,5 +1,4 @@
 class SmallestMultiple
-require 'pp'
 
   def find_primes(number)
     prime_factors = []
@@ -13,24 +12,22 @@ require 'pp'
     prime_factors
   end
 
-  def pass_in_a_group_of_nums_to_find_the_prime_factors(upto)
-    primes_for_a_group_of_nums = []
-    for every_element in (2..upto)
-      primes_for_a_group_of_nums << find_primes(every_element)
+  def find_the_prime_factors_for_each_from_2_to(upto)
+    prime_factors_for_upto_set = []
+    (2..upto).each do |each_num|
+      prime_factors_for_upto_set << find_primes(each_num)
     end
-    primes_for_a_group_of_nums
+    prime_factors_for_upto_set
   end
 
-  def count_identical_elements_in_array_and_create_hash(primes_for_a_group_of_nums)
-      array_of_hashes = []
-      primes_for_a_group_of_nums.each do |each_prime_factor_set|
-        a = each_prime_factor_set
-        b = Hash.new(0)
-        a.each { |v| b[v] += 1 }
-        b
-        array_of_hashes << b
+  def create_hash_mapping_for_base_exponent(primes_factors_for_upto_set)
+    prime_hash_exponent_mapping = []
+    primes_factors_for_upto_set.each do |prime_factor_set|
+      hash_equivalent = Hash.new(0)
+      prime_factor_set.each { |base| hash_equivalent[base] += 1 }
+      prime_hash_exponent_mapping << hash_equivalent
     end
-       array_of_hashes
+    prime_hash_exponent_mapping
   end
 
   #ASK BEN WHY THE EACH STATEMENT DID NOT WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -42,18 +39,17 @@ require 'pp'
   #   array_of_hashes
   # end
 
-  def compare_the_hashes(array_of_hashes)
-    while array_of_hashes.count != 1 do
-      array_of_hashes[0].merge!(array_of_hashes[1]) { |key, oldval, newval| [newval, oldval].max }
-      array_of_hashes.delete_at(1)
+  def merge_w_highest_exponent(hash_base_exponent_mapping)
+    while hash_base_exponent_mapping.count != 1 do
+      hash_base_exponent_mapping[0].merge!(hash_base_exponent_mapping[1]) { |key, oldval, newval| [newval, oldval].max }
+      hash_base_exponent_mapping.delete_at(1)
     end
-    array_of_hashes
+    hash_base_exponent_mapping
   end
 
-  def does_calculation(array_of_hashes)
+  def lcm_calculation(hash_base_exponent_mapping)
     evaluation = []
-
-    array_of_hashes[0].each do |key, value|
+    hash_base_exponent_mapping[0].each do |key, value|
       evaluation << key**value
     end
 
@@ -64,14 +60,13 @@ require 'pp'
     # final_evaluation
 
     return evaluation.inject(1, :*)
-
   end
 
   def project_euler_solution(upto)
-    step_one = pass_in_a_group_of_nums_to_find_the_prime_factors(upto)
-    step_two = count_identical_elements_in_array_and_create_hash(step_one)
-    step_three = compare_the_hashes(step_two)
-    does_calculation(step_three)
+    step_one = find_the_prime_factors_for_each_from_2_to(upto)
+    step_two = create_hash_mapping_for_base_exponent(step_one)
+    step_three = merge_w_highest_exponent(step_two)
+    lcm_calculation(step_three)
   end
 
 end

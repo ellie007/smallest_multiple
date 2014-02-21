@@ -22,34 +22,34 @@ describe SmallestMultiple do
   end
 
   it "find the primes factors for each between 2 to 4" do
-    test.pass_in_a_group_of_nums_to_find_the_prime_factors(4).should == [[2], [3], [2, 2]]
+    test.find_the_prime_factors_for_each_from_2_to(4).should == [[2], [3], [2, 2]]
   end
 
   it "makes the primes into hashes" do
-    test.count_identical_elements_in_array_and_create_hash([[2, 3, 3, 4, 4], [2, 2, 3]]).should == [{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]
+    test.create_hash_mapping_for_base_exponent([[2, 3, 3, 4, 4], [2, 2, 3]]).should == [{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]
   end
 
   it "merges the hashes together giving the highest factor in each number" do
-    test.compare_the_hashes([{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]).should == [{2=>2, 3=>2, 4=>2}]
+    test.merge_w_highest_exponent([{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]).should == [{2=>2, 3=>2, 4=>2}]
   end
 
   it "merges the hashes together giving the highest factor in each number" do
-    test.compare_the_hashes([{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]).should == [{2=>2, 3=>2, 4=>2}]
+    test.merge_w_highest_exponent([{2=>1, 3=>2, 4=>2}, {2=>2, 3=>1}]).should == [{2=>2, 3=>2, 4=>2}]
   end
 
   it "merges the hashes together giving the highest factor in each number" do
-    test.compare_the_hashes([{2=>1},{3=>1},{2=>2},{5=>1},{2=>1, 3=>1},{7=>1},{2=>3},{3=>2},{2=>1, 5=>1}]).should == [{2=>3, 3=>2, 5=>1, 7=>1}]
+    test.merge_w_highest_exponent([{2=>1},{3=>1},{2=>2},{5=>1},{2=>1, 3=>1},{7=>1},{2=>3},{3=>2},{2=>1, 5=>1}]).should == [{2=>3, 3=>2, 5=>1, 7=>1}]
   end
 
   it "does final calculation" do
-    test.does_calculation([{2=>2, 3=>2, 4=>2}]).should == 576
+    test.lcm_calculation([{2=>2, 3=>2, 4=>2}]).should == 576
   end
 
   it "return 2520 as the LCM of all from 1 to 10" do
     test.project_euler_solution(10).should == 2520
   end
 
-  it "return XXXXXXXX as the LCM of all from 1 to 20" do
+  it "return 232792560 as the LCM of all from 1 to 20" do
     test.project_euler_solution(20).should == 232792560
   end
 
